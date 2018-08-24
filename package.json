@@ -1,0 +1,20 @@
+{
+  "name": "symbol-and-generators",
+  "version": "1.0.0",
+  "description": "Playing Around with Symbol and Genearators",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spykins/Symbol-And-Generators.git"
+  },
+  "author": "Akinsanmi Waleola",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/spykins/Symbol-And-Generators/issues"
+  },
+  "homepage": "https://github.com/spykins/Symbol-And-Generators#readme"
+}
