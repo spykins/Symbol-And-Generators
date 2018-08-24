@@ -1,3 +1,13 @@
+/**
+    According to MDN, The Symbol() function returns a value of type symbol, has static properties 
+    that expose several members of built-in objects, has static methods that expose the global symbol 
+    registry, and resembles a built-in object class but is incomplete as a constructor because it does 
+    not support the syntax "new Symbol()".
+
+    ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol
+ */
+
+
 const MY_FIRST_NAME = "Waleola";
 // I want to create a Symbol
 const myFirstNameSymbolWithoutReference = Symbol(MY_FIRST_NAME);
