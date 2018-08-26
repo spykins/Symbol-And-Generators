@@ -215,6 +215,73 @@ console.log(unBoxedIteratorOfFood.next());    //o/p { value: undefined, done: tr
 
 
 
+ /******************** ********** ********** **********  Section 1********** ********** ********** ********** ********** ********** */ 
+ 
+                                  /********** Private Field using Symbols */
+
+  /******************** ********** ********** **********  Section 1********** ********** ********** ********** ********** ********** */ 
+
+// using symbols, I think you can achieve true private instance variable that cannot be called from outside the class
+// I want to assume that there may be perfomance overhead in this, but if I am doing stuffs that I want to be really private
+// I would consult the senior members of my team and we can way the pros and cons....
+// It will be nice to drop your feedback and I want to know if you are using it.. I have not built any concrete application with Javascript
+// Just something I built in bootcamp while trying to get a job...
+
+// so lets see some code
+// take for instance, I am building a medical app and I want to have medical information of the patient
+
+let patientData = {
+  address: "Somewhere in Montreal",
+  familyName: "Akinsanmi",
+  age: "100",
+  bloodGroup: "j",
+  mriData: "Oh shit, contains everything",
+  name: "Wale",
+  testResult: "haahaa!! don't go there",
+}
+
+// e.t.c... Yeah, you get the idea.....
+// There are information that we probably want to make public and stuff we want to keep private
+// Maybe you can encrypt and decrypt info... maybe there are other ways to go about this please let me know
+// I know people use the _conventionOfPrivateInstanceVariable which is good but can still be accessed.
+
+// Symbol to the rescue....
+// I can keep a constant of what I want to keep private in the class...
+
+const _mriData = Symbol("mriData");
+const _testResults = Symbol("test results");
+
+class Patient {
+    constructor(name, mriData, testResults, age) {
+      // I can transform this data into an object that can't be accessed outside this class
+      this[_mriData] = mriData;
+      this[_testResults] = testResults;
+      this.name = name;
+      this.age = age; // I can pass more variable using a builder pattern or just set them as need be
+    }
+
+    // Notice that we are not using Symbol.for("key") here.... 
+    // The reason is because we don't want to get the same symbol when we instantiate with the same string
+    // refer to creating symbol session to understand
+    
+    // take for instance we want someone with clearance to be able to read the mriData
+    getMriData() {
+      return this[_mriData];
+    } 
+
+    // take for instance, we want people to be able to set the testResults... maybe add to an array or somethin
+    setTestResults(newResult) {
+      this[_testResults] = newResult;
+    }
+
+}
+ 
+let firstPatient = new Patient("Bob", "ajb.jpeg", "Bob test results", 50);
+console.log(firstPatient.getMriData());
+
+// with this ther is no way the caller can get hold of our mri Data, I think that is what abstraction in oop talks about
+
+
 //************* Please drop your comment, give feedback, I want to learn from you, I am new to 
 //programming and I find it really fun, most especially learning about the language... and not 
 // the frameworks.....  
@@ -228,3 +295,5 @@ console.log(unBoxedIteratorOfFood.next());    //o/p { value: undefined, done: tr
         I am going to create a simple react-native project to validate input using generator....
 
  */
+
+ 
