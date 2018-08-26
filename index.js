@@ -17,8 +17,12 @@
  */
 
  
+ /******************** ********** ********** **********  Section 1********** ********** ********** ********** ********** ********** */ 
  
- /********** Introduction: How to create Symbols */
+                                  /********** Introduction: How to create Symbols */
+
+  /******************** ********** ********** **********  Section 1********** ********** ********** ********** ********** ********** */ 
+
 
 const FIRST_NAME = "spykins";
 // The line of code after this comment: creates a Symbol
@@ -58,9 +62,12 @@ console.log("5: ",Symbol.keyFor(firstNameSymbolWithoutReference));  // o/p 5:  u
 console.log("6: ",Symbol.keyFor(firstNameSymbolThatICanReference)); // o/p 6:  Wale
 
 
+ /******************** ********** ********** **********  Section 2********** ********** ********** ********** ********** ********** */ 
 
 
-/***********  Iterator:    Using Symbol has Iterator*/
+                                    /***********  Iterator:    Using Symbol has Iterator*/
+
+/******************** ********** ********** **********  Section 2********** ********** ********** ********** ********** ********** */ 
 
 /**
     According to MDN : In JavaScript an iterator is an object which defines a sequence and potentially a return value upon its termination. 
@@ -95,24 +102,24 @@ console.log("6: ",Symbol.keyFor(firstNameSymbolThatICanReference)); // o/p 6:  W
  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/iterator
  // I will try to simplify it as simple as I can
 
- let foodILike = ["Pounded Yam", "eba", "fufu", "parota", "pan cake", "egunsi soup", "cabonara", "rice! rice!! rice!!"];
+ let arrayOfFoodILike = ["Pounded Yam", "eba", "fufu", "parota", "pan cake", "egunsi soup", "cabonara", "rice! rice!! rice!!"];
  // Ok that explains why I am big and strong, I can't bet if they are healthy stuff though
  // ok say we want to loop through what I have... we can do it in so many ways...
 
  //****** looping through arraay, irrelevant on
  /**
-  for (let index =0; index < foodILike.length; index++) {
-   console.log(foodILike[index])
+  for (let index =0; index < arrayOfFoodILike.length; index++) {
+   console.log(arrayOfFoodILike[index])
  }
 
  // Used in object, since array is an object, I can use foodIlike[key]
- for (let key in foodILike) {
-   console.log(foodILike[key]);
+ for (let key in arrayOfFoodILike) {
+   console.log(arrayOfFoodILike[key]);
  }
 
  // The most prefer style for me is to use the functional paradigm of foreach
 
- foodILike.forEach((value) => console.log(value));
+ arrayOfFoodILike.forEach((value) => console.log(value));
 
  // bomb! I should like that coming from Java background..... 
 
@@ -122,7 +129,7 @@ console.log("6: ",Symbol.keyFor(firstNameSymbolThatICanReference)); // o/p 6:  W
   //******** back to Iterator
 
 
-let iteratorOfFoodILike = foodILike[Symbol.iterator];
+let iteratorOfFoodILike = arrayOfFoodILike[Symbol.iterator];
 console.log("7: ", typeof iteratorOfFoodILike); // o/p 7:  function
 // This is unsurprisingly a function
 // what do you do to a function?..... You execute it right?? with what??? just appending the () after the name
@@ -131,7 +138,7 @@ console.log("7: ", typeof iteratorOfFoodILike); // o/p 7:  function
 // for some reasons, I find out that executing the function this way throws an error, I will be glad if you can
 // take a look at it and tell me why it is failing.....
 // but I can execute right here
-iteratorOfFoodILike = foodILike[Symbol.iterator]();
+iteratorOfFoodILike = arrayOfFoodILike[Symbol.iterator]();
 // Just reassigning the variable... = assignment operator means whatever is on the right to the left.... TIL for you.. haaha
 console.log("8: ", typeof iteratorOfFoodILike); //o/p 8:  object
 // Now this gives us an object, I think it will be cool to verify what this object contains.... and share with us...
@@ -144,3 +151,80 @@ console.log("9: ", iteratorOfFoodILike.next()); // o/p { value: 'Pounded Yam', d
 
 console.log("10: ", iteratorOfFoodILike.next().value); // o/p 10:  eba
 // I am calling value on it here....
+
+
+
+ /******************** ********** ********** **********  Section 3********** ********** ********** ********** ********** ********** */ 
+
+                                          /******** How does Symbol.Iterator work */
+
+ /******************** ********** ********** **********  Section 3********** ********** ********** ********** ********** ********** */ 
+
+ // Simple if you had taken sometime to think about how it works when I asked previously, you most likely would have guessed this session
+
+ const ITERATOR_KEY = "FoodFoodIterator";
+
+ let iteratorFunction = (arrayArgs) => {
+    return {
+          [Symbol.for(ITERATOR_KEY)]() {
+                let counter = 0;
+                return {
+                  next() {
+                    return {
+                      value: arrayArgs[counter++],
+                      done: counter > arrayArgs.length,
+                    }
+                  }
+                }
+
+          }
+
+    }
+ }
+
+ let unBoxingTheIteratorOfFoodILike = iteratorFunction(arrayOfFoodILike);
+ console.log("11: ", typeof unBoxingTheIteratorOfFoodILike); // 11:  object
+ // I am returning an object from the function
+ // Notice the object has one key, which is a symbol. If you follow from the previous section, 
+ // you will know that there is no way to access the value unless you know the key... 
+ // oh yeah that is the idea towards Abstraction which is the concept of hiding the internal details
+ // and implementation of our class, WITH THIS WE CAN MAKE STUFFS PRIVATE IN THE REAL OOP WORD
+ // I will write a simple code that explains how to achieve that using the es6 class declaration
+ // I am trying to make this as simple as possible... but you get the idea, yes???
+
+ // since we are in this same class and we have the key to the padlock, let's unlock it
+ 
+let unBoxedIteratorOfFood = unBoxingTheIteratorOfFoodILike[Symbol.for(ITERATOR_KEY)];
+console.log("12: ", typeof unBoxedIteratorOfFood); // 12:  function
+// Yeah you guessed it right, a function..... You are a cheat, the code is just 
+// staring at you.... Now we did not  face the issue we add previously
+unBoxedIteratorOfFood = unBoxedIteratorOfFood();
+console.log("13: ", typeof unBoxedIteratorOfFood); // 13:  object
+// As expected...
+
+
+console.log(unBoxedIteratorOfFood.next());     //o/p { value: 'Pounded Yam', done: false }
+console.log(unBoxedIteratorOfFood.next());     //o/p { value: 'eba', done: false }
+console.log(unBoxedIteratorOfFood.next());    //o/p { value: 'fufu', done: false }
+console.log(unBoxedIteratorOfFood.next());    //o/p { value: 'parota', done: false }
+console.log(unBoxedIteratorOfFood.next());    //o/p { value: 'pan cake', done: false }
+console.log(unBoxedIteratorOfFood.next());    //o/p { value: 'egunsi soup', done: false }
+console.log(unBoxedIteratorOfFood.next());    //o/p { value: 'cabonara', done: false }
+console.log(unBoxedIteratorOfFood.next());    //o/p { value: 'rice! rice!! rice!!', done: false }
+console.log(unBoxedIteratorOfFood.next());    //o/p { value: undefined, done: true }
+
+
+
+//************* Please drop your comment, give feedback, I want to learn from you, I am new to 
+//programming and I find it really fun, most especially learning about the language... and not 
+// the frameworks.....  
+// Thanks.........
+
+/**
+        What is next?
+        I am going to write a small file like this on how to use generator in js
+        I am currently learning react-native and I the tutorial I am following has a weird tightly coupled code
+        that it's difficult for me to grasp the information.... while watching the video
+        I am going to create a simple react-native project to validate input using generator....
+
+ */
