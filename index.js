@@ -61,3 +61,31 @@ console.log("6: ",Symbol.keyFor(firstNameSymbolThatICanReference)); // o/p 6:  W
 
 
 /***********  Iterator:    Using Symbol has Iterator*/
+
+/**
+    According to MDN : In JavaScript an iterator is an object which defines a sequence and potentially a return value upon its termination. 
+    More specifically an iterator is any object which implements the Iterator protocol by having a next() method which returns an object with 
+    two properties: value, the next value in the sequence; and done, which is true if the last value in the sequence has already been consumed. 
+    If value is present alongside done, it is the iterator's return value.
+
+    ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators 
+
+    This looks rather vague to me while trying to simplify stuff, they make it more difficult to understand... Unless you are a guru or a 
+    super smart computer science jacky first class student, I doubt if you will be able to understand that.. Certaining not for "olodo" like me that 
+    struggled through the university.....
+
+    Ok, enough about the ranting... I know Iterator is also in Java, lets see if they have a better explanation
+
+    According to Oracle : An iterator over a collection. Iterator takes the place of Enumeration in the Java Collections Framework. Iterators differ from enumerations in two ways:
+      Iterators allow the caller to remove elements from the underlying collection during the iteration with well-defined semantics.
+    Method names have been improved. This interface is a member of the Java Collections Framework.
+
+    ref: https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html 
+    
+    I think the oracle docs looks more like it... well don't judge me on that but when you copy stuff, you should learn to copy right.... I am a copy! copier myself.... 
+    Be original man, for once in your life... haaahaaaa!!!
+    
+    Ok lets dive into code....
+
+
+ */
