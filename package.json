@@ -4,7 +4,7 @@
   "description": "Playing Around with Symbol and Genearators",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "live-server | render-markdown-js index.md > index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/spykins/Symbol-And-Generators/issues"
   },
-  "homepage": "https://github.com/spykins/Symbol-And-Generators#readme"
+  "homepage": "https://github.com/spykins/Symbol-And-Generators#readme",
+  "dependencies": {
+    "live-server": "^1.2.0",
+    "render-markdown-js": "^1.3.0"
+  }
 }
